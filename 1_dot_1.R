@@ -1,15 +1,19 @@
-books <- read.csv("anonymous-betting-data.csv")
-source("pretraitements.R")
-nrow(books) # nombre de paris
-summary(books) # résumé des données
-length(levels(books$match_uid)) # Le nombre de match
-length(levels(as.factor(c(books$winner, books$loser)))) # Le nombre de parieurs
-min(books$year) # Année minimale
-min(books$year) # Année maximale
-length(levels(books$book)) # Nombre de bookmakers
-# Nombre de match annulés  2151
+books <- read.csv("anonymous-betting-data.csv") # Chargement des données
+source("pretraitements.R") # Prétraitements des données
 
 
+############################### Question 1 ############################### 
+nrow(books.sel) # Nombre de paris : 126461
+summary(books.sel) # Résumé des données
+length(unique(books.sel$match_uid)) # Le nombre de matchs : 25993
+length(unique(c(books.sel$winner, books.sel$loser))) # Le nombre de joueurs : 1523
+min(books.sel$year) # Année minimale : 2009
+max(books.sel$year) # Année maximale : 2015
+max(books.sel$year) - min(books.sel$year) # Période de temps : 6 ans
+length(unique(books.sel$book)) # Nombre de bookmakers : 7
+
+
+############################### Question 2 ###############################
 data <-aggregate(x=books[,c("winner","loser")] , by=list(match=books$match_uid), FUN=unique)
 test1 <- function (data){
 	joueurs <- levels(as.factor(c(levels(data$winner), levels(data$loser))));
