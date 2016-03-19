@@ -98,13 +98,87 @@ boxplot(players[1:500,2:4]) # Diagramme en boites du nombre de match joués, du 
 
 pause()
 
+
 ############################### Question 3 ###############################
 
-which(abs(books.sel$implied_prob_winner_open - books.sel$implied_prob_winner_close)>=0.1)
-unique(books.sel[which(abs(books.sel$implied_prob_winner_open - books.sel$implied_prob_winner_close)>=0.1), 15])
-length(unique(books.sel[which(abs(books.sel$implied_prob_winner_open - books.sel$implied_prob_winner_close)>=0.1), 15]))
+winnerProbabilityEvolution <- books.sel$implied_prob_winner_close - books.sel$implied_prob_winner_open 
+# Evolutions de probabilité de gain du match pour le gagnant
 
-books.sel[which(abs(books.sel$implied_prob_winner_open - books.sel$implied_prob_winner_close)>=0.1), 12]
+loserProbabilityEvolution <- books.sel$implied_prob_loser_close - books.sel$implied_prob_loser_open
+# Evolutions de probabilité de gain du match pour le perdant
 
-names(books.sel)
+books.sel$absProbabilityEvolution <- abs(books.sel$implied_prob_winner_open - books.sel$implied_prob_winner_close)
+# Evolutions de probabilité de gain du match en valeur absolu
 
+unique(books.sel[which(books.sel$absProbabilityEvolution >= 0.1), 15])
+# Les match suspects
+
+length(unique(books.sel[which(books.sel$absProbabilityEvolution >=0.1), 15]))
+# Nombre de match suspects : 2798
+
+matchProbEvolution <- aggregate(absProbabilityEvolution~match_uid, books.sel, FUN=max) 
+# Evolution maximale de probabilité de chaque match
+
+suspectMatches <- matchProbEvolution[which(matchProbEvolution[2] >= 0.1), c(1, 2)]
+# Restriction sur les match suspects
+
+hist(suspectMatches$absProbabilityEvolution, main="Catégorisation des match suspects à partir de leur évolution maximale de probabilité", 
+	xlab="Niveau")
+# Caractérisation des matchs suspects
+
+pause()
+
+length(unique(books.sel[,12])) # Nb total de bookmakers
+
+books.sel[which(abs(books.sel$absProbabilityEvolution)>=0.1), 12] 
+# Noms des bookmakers impliqués dans des paris suspects
+
+length(unique(books.sel[which(books.sel$absProbabilityEvolution>=0.1), 12]))
+# Nombre de bookmakers impliqués dans des paris suspects
+
+numberOfSuspiciousBets <- table(books.sel[which(books.sel$absProbabilityEvolution>=0.1), 12])
+# Nombre de paris suspects dans lesquels sont impliqués chaque bookmaker
+
+barplot(numberOfSuspiciousBets, main="Nombre de paris suspects dans lesquels sont impliqués chaque bookmaker")
+# Diagramme bâtons représentants les nombres de paris suspects dans lesquels sont
+# impliqués chaque bookmaker
+
+pause()
+
+unique(books.sel[which(books.sel$absProbabilityEvolution>=0.1),13])
+# Perdants supects
+
+length(unique(books.sel[which(books.sel$absProbabilityEvolution>=0.1),13]))
+# Nombre de perdants supects : 559
+
+unique(books.sel[which(books.sel$absProbabilityEvolution>=0.1),14])
+# Gagnants suspects
+
+length(unique(books.sel[which(books.sel$absProbabilityEvolution>=0.1),14]))
+# Nombre de gagnants supects : 455
+
+unique(c(as.character(books.sel[which(books.sel$absProbabilityEvolution>=0.1),13]), as.character(books.sel[which(books.sel$absProbabilityEvolution>=0.1),14])))
+# Joueurs suspects
+
+length(unique(c(as.character(books.sel[which(books.sel$absProbabilityEvolution>=0.1),13]), as.character(books.sel[which(books.sel$absProbabilityEvolution>=0.1),14]))))
+# Nombre de joueurs suspects, tjrs les mêmes...
+
+suspectBets <- books.sel[books.sel$absProbabilityEvolution >= 0.1, c(15, 13)]
+# Les identifiants des match et les identifiants des perdants des paris suspects
+
+suspectMatchesWthLoser <- suspectBets[which(!duplicated(suspectBets$match_uid)), c(1, 2)]
+# On enlève les duplications
+
+suspectLosers <- data.frame(table(suspectMatchesWthLoser$loser))
+# Nombre de match suspects perdus par chaque joueur
+
+suspectLosers <- suspectLosers[suspectLosers$Freq >= 10, c(1,2)]
+# Nombre de match suspects perdus par chaque joueur considéré comme suspects
+
+length(suspectLosers[,2])
+# Nombre de perdants supects : 104
+
+hist(suspectLosers[,2], main="Catégorisation des perdants suspects à partir du nombre de match suspects dans lesquels ils sont impliqués")
+# Caractérisation des perdants suspects
+
+pause()
