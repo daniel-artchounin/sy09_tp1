@@ -7,7 +7,6 @@ crabsquant <- crabs[,4:8]
 
 ############################### Question 1 ############################### 
 
-
 table(crabs$sex) # Autant de femelles que de mâles
 table(crabs$sp) # Autant d'espèces O que d'espèces B
 
@@ -61,3 +60,36 @@ hO <- hist(plot=F, crabs$FL[crabs$sp=='O'], breaks=inter)
 
 barplot(rbind(hB$counts,hO$counts),space=0,
 legend=levels(crabs$sp), main="Fontal lobe size (mm) en fonction du sexe", col=c('lightslateblue', 'orangered'))
+pause()
+
+
+############################### Question 2 ############################### 
+
+# Graphiquement, on remarque assez facilement l'existence de corrélations, de relations linéaires
+# entre toutes les variables quantitatives prises 2 à 2.
+
+print(cov(crabsquant))
+# Le calcul de la matrice de variance-covariance empirique semble confirmer l'existence de corrélations entre 
+# entre les différentes variables.
+pause()
+
+# Afin d'illustrer mes dires, je vais réaliser un test de corélation entre les variables 
+# Carapace length (mm) et Carapace width (mm). L'hypothèse nulle de ce test est l'absence de 
+# corrélation entre ces deux variables.
+print(cor.test(crabsquant$CL , crabsquant$CW))
+# Le degré de signification (p-value) est striment inférieur à 2.2e-16. Cela signifie que pour
+# un niveau de signification (alpha) de 1%, on s'autoriserait à rejeter l'hypothèse nulle.
+# Il y a donc corrélation entre les deux variables.
+# Cette corrélation semble linéaire.
+
+pause()
+
+# Afin de prouve cela, nous allons tenter une régression linéaire entre ces deux variables
+lM <- lm(crabsquant$CL ~ crabsquant$CW)
+print(lM) # On peut consulter le modèle (l'ordonnée à l'origine et le coefficient directeur)
+
+pause()
+
+plot(crabsquant$CW, crabsquant$CL, col="royalblue", main="Carapace length (mm) en fonction de Carapace width (mm)", xlab="Carapace width (mm)", ylab="Carapace length (mm)")
+abline(lM, col="firebrick4")
+legend("bottomright", 200, legend=c("Carapace", "Linear model"), col=c("royalblue", "firebrick4"), pch=c('o','-'))
