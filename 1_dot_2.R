@@ -34,7 +34,7 @@ hM <- hist(plot=F, crabs$RW[crabs$sex=='M'], breaks=inter)
 # est retournée.
 
 barplot(rbind(hF$counts,hM$counts),space=0,
-legend=levels(crabs$sex), main="Fontal lobe size (mm) en fonction du sexe", col=c('firebrick', 'darkcyan'))
+legend=levels(crabs$sex), main="Rear width (mm) en fonction du sexe", col=c('firebrick', 'darkcyan'))
 
 pause()
 

@@ -55,7 +55,7 @@ players <- data.frame(
 
 players$nb_played <- players$nb_win + players$nb_lose # Calcul du nombre de match joués
 players$level <- players$nb_win/(players$nb_win + players$nb_lose) # Calcul du niveau
-# -> Il faudrait trouver un indicateur qui dépende également du nombre de match joués
+# -> Il faudrait trouver un indicateur qui dépende également du nombre de match joués : côte moyenne des cotes de matchs
 
 hist(players$level, main="Catégorisation des joueurs en fonction de leur niveau", 
 	xlab="Niveau") 
