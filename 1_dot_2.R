@@ -38,7 +38,7 @@ legend=levels(crabs$sex), main="Rear width (mm) en fonction du sexe", col=c('fir
 
 pause()
 
-plot(crabsquant, main="Caractéristiques morphologiques des crabes selon leur espèce", 
+plot(crabsquant, main="Caractéristiques morphologiques \ndes crabes selon leur espèce", 
 	pch=21, 
 	col=c("lightslateblue", "orangered")[crabs[,1]],
 	labels=labelsNames)
@@ -59,7 +59,7 @@ hO <- hist(plot=F, crabs$FL[crabs$sp=='O'], breaks=inter)
 # est retournée.
 
 barplot(rbind(hB$counts,hO$counts),space=0,
-legend=levels(crabs$sp), main="Fontal lobe size (mm) en fonction du sexe", col=c('lightslateblue', 'orangered'))
+legend=levels(crabs$sp), main="Fontal lobe size (mm) en \nfonction du sexe", col=c('lightslateblue', 'orangered'))
 pause()
 
 
@@ -90,6 +90,6 @@ print(lM) # On peut consulter le modèle (l'ordonnée à l'origine et le coeffic
 
 pause()
 
-plot(crabsquant$CW, crabsquant$CL, col="royalblue", main="Carapace length (mm) en fonction de Carapace width (mm)", xlab="Carapace width (mm)", ylab="Carapace length (mm)")
+plot(crabsquant$CW, crabsquant$CL, col="royalblue", main="Carapace length (mm) en fonction \nde Carapace width (mm)", xlab="Carapace width (mm)", ylab="Carapace length (mm)")
 abline(lM, col="firebrick4")
 legend("bottomright", 200, legend=c("Carapace", "Linear model"), col=c("royalblue", "firebrick4"), pch=c('o','-'))

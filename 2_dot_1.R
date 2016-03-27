@@ -38,7 +38,7 @@ pause()
 k <- 2 # Pour le premier plan factoriel
 C <- X %*% M %*% U[, 1:k] # Principal components
 
-plot(C, col="royalblue", main="Les quatres individus dans le premier plan factoriel", xlab="u1", ylab="u2")
+plot(C, col="royalblue", main="Les quatres individus dans le \npremier plan factoriel", xlab="u1", ylab="u2")
 
 pause()
 
@@ -59,7 +59,7 @@ LAMBDABis <- EIGENBis$values
 kBis <- 2 # Pour le premier plan factoriel
 CBis <- XBis %*% MBis %*% UBis[, 1:kBis] # Principal components
 
-plot(CBis, col="royalblue", main="Les trois variables dans le premier plan factoriel", xlab="u1", ylab="u2")
+plot(CBis, col="royalblue", main="Les trois variables dans le \npremier plan factoriel", xlab="u1", ylab="u2")
 
 pause()
 

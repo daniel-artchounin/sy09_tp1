@@ -57,20 +57,20 @@ players$nb_played <- players$nb_win + players$nb_lose # Calcul du nombre de matc
 players$level <- players$nb_win/(players$nb_win + players$nb_lose) # Calcul du niveau
 # -> Il faudrait trouver un indicateur qui dépende également du nombre de match joués : côte moyenne des cotes de matchs
 
-hist(players$level, main="Catégorisation des joueurs en fonction de leur niveau", 
+hist(players$level, main="Catégorisation des joueurs en \nfonction de leur niveau", 
 	xlab="Niveau") 
 # Il y près de 600 joueurs vraiment nuls (ayant un ratio compris entre 0 et 0.1)
 # Sont-ils réellement nuls ont n'ont-ils pas assez joué de match ?
 
 pause()
 
-plot(players$level, players$nb_played, main="Nombre de match joués en fontion du niveau des joueurs", 
+plot(players$level, players$nb_played, main="Nombre de match joués en fonction \ndu niveau des joueurs", 
 	xlab="Niveau", ylab="Nombre de match joués") 
 # Nombre de match joués en fonction du niveau du joueur
 
 pause()
 
-plot(players$level, players$nb_win, main="Nombre de match gagnés en fontion du niveau des joueurs", 
+plot(players$level, players$nb_win, main="Nombre de match gagnés en fonction \ndu niveau des joueurs", 
 	xlab="Niveau", ylab="Nombre de match gagnés") 
 # Nombre de match gagnés en fonction du niveau du joueur
 # -> Les joueurs ayant un niveau élevé ont soit joué très peu de match soit beaucoup (les vrais bons joueurs)
@@ -78,14 +78,14 @@ plot(players$level, players$nb_win, main="Nombre de match gagnés en fontion du 
 
 pause()
 
-plot(players$level, players$nb_lose, main="Nombre de match perdus en fontion du niveau des joueurs", 
+plot(players$level, players$nb_lose, main="Nombre de match perdus en fonction \ndu niveau des joueurs", 
 	xlab="Niveau", ylab="Nombre de match perdus") 
 # Nombre de match perdus en fonction du niveau du joueur
 
 pause()
 
 boxplot(players[,2:4], names=c('Match joués', 'Match gagnés', 'Match perdus'),
-main="Nombre de match joués, gagnés et perdus") 
+main="Nombre de match joués, \ngagnés et perdus") 
 # Diagramme en boites du nombre de match joués, du nombre de match gagnés et 
 # du nombre de match perdus pour chaque joueur
 # Au moins 75 % des joueurs ont joué moins de 30 matchs
@@ -122,7 +122,7 @@ matchProbEvolution <- aggregate(absProbabilityEvolution~match_uid, books.sel, FU
 suspectMatches <- matchProbEvolution[which(matchProbEvolution[2] >= 0.1), c(1, 2)]
 # Restriction sur les match suspects
 
-hist(suspectMatches$absProbabilityEvolution, main="Catégorisation des match suspects à partir de leur évolution maximale de probabilité", 
+hist(suspectMatches$absProbabilityEvolution, main="Catégorisation des match suspects à partir \nde leur évolution maximale de probabilité", 
 	xlab="Niveau")
 # Caractérisation des matchs suspects
 
@@ -139,7 +139,7 @@ length(unique(books.sel[which(books.sel$absProbabilityEvolution>=0.1), 12]))
 numberOfSuspiciousBets <- table(books.sel[which(books.sel$absProbabilityEvolution>=0.1), 12])
 # Nombre de paris suspects dans lesquels sont impliqués chaque bookmaker
 
-barplot(numberOfSuspiciousBets, main="Nombre de paris suspects dans lesquels sont impliqués chaque bookmaker")
+barplot(numberOfSuspiciousBets, main="Nombre de paris suspects dans lesquels \nsont impliqués chaque bookmaker")
 # Diagramme bâtons représentants les nombres de paris suspects dans lesquels sont
 # impliqués chaque bookmaker
 
@@ -178,7 +178,7 @@ suspectLosers <- suspectLosers[suspectLosers$Freq >= 10, c(1,2)]
 length(suspectLosers[,2])
 # Nombre de perdants supects : 104
 
-hist(suspectLosers[,2], main="Catégorisation des perdants suspects à partir du nombre de match suspects dans lesquels ils sont impliqués")
+hist(suspectLosers[,2], main="Catégorisation des perdants suspects à partir du nombre \nde match suspects dans lesquels ils sont impliqués")
 # Caractérisation des perdants suspects
 
 pause()
