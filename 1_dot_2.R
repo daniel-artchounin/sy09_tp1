@@ -13,13 +13,16 @@ table(crabs$sp) # Autant d'espèces O que d'espèces B
 labelsNames <- c("Fontal lobe size (mm)", "Rear width (mm)", "Carapace length (mm)",
                 "Carapace width (mm)", "Body depth (mm)")
 
+png("./images/1_dot_2/crabes_selon_sexe.png")
 plot(crabsquant, main="Caractéristiques morphologiques\n des crabes selon leur sexe", 
 	pch=21, 
 	col=c("firebrick", "darkcyan")[crabs[,2]],
 	labels=labelsNames	
 	)
-legend("bottomright", 200,legend=c("Femelle", "Mâle"), col = c("firebrick", "darkcyan"), pch = 21, inset=0)
+legend("bottomright", 200,legend=c("Femelle", "Mâle"), 
+	col = c("firebrick", "darkcyan"), pch = 21, inset=0)
 # Il semblerait que le sexe impacte notablement le paramètre "Rear width" 
+dev.off()
 
 pause()
 
@@ -33,18 +36,24 @@ hM <- hist(plot=F, crabs$RW[crabs$sex=='M'], breaks=inter)
 # Une list de 'breaks' (les valeurs limites de chaque 'bin') et du nombre de valeurs dans chaque bin 
 # est retournée.
 
+png("./images/1_dot_2/rear_width_fonction_sexe.png")
 barplot(rbind(hF$counts,hM$counts),space=0,
-legend=levels(crabs$sex), main="Rear width (mm) en fonction du sexe", col=c('firebrick', 'darkcyan'))
+legend=levels(crabs$sex), main="Rear width (mm) en fonction du sexe", 
+	col=c('firebrick', 'darkcyan'))
+dev.off()
 
 pause()
 
+png("./images/1_dot_2/crabes_selon_espece.png")
 plot(crabsquant, main="Caractéristiques morphologiques \ndes crabes selon leur espèce", 
 	pch=21, 
 	col=c("lightslateblue", "orangered")[crabs[,1]],
 	labels=labelsNames)
-legend("bottomright", 200,legend=c("Espèce bleue", "Espèce orange"), col = c("lightslateblue", "orangered"), pch = 21, inset=0)
+legend("bottomright", 200,legend=c("Espèce bleue", "Espèce orange"), 
+	col = c("lightslateblue", "orangered"), pch = 21, inset=0)
 # Il semblerait que les paramètres "Carapace width" et "Fontal lobe size" soient
 # impactés par l'espèce de crabe
+dev.off()
 
 pause()
 
@@ -58,8 +67,12 @@ hO <- hist(plot=F, crabs$FL[crabs$sp=='O'], breaks=inter)
 # Une list de 'breaks' (les valeurs limites de chaque 'bin') et du nombre de valeurs dans chaque bin 
 # est retournée.
 
+png("./images/1_dot_2/fontal_lobe_size_fonction_sexe.png")
 barplot(rbind(hB$counts,hO$counts),space=0,
-legend=levels(crabs$sp), main="Fontal lobe size (mm) en \nfonction du sexe", col=c('lightslateblue', 'orangered'))
+legend=levels(crabs$sp), main="Fontal lobe size (mm) en \nfonction de l'espèce", 
+	col=c('lightslateblue', 'orangered'))
+dev.off()
+
 pause()
 
 
@@ -90,6 +103,11 @@ print(lM) # On peut consulter le modèle (l'ordonnée à l'origine et le coeffic
 
 pause()
 
-plot(crabsquant$CW, crabsquant$CL, col="royalblue", main="Carapace length (mm) en fonction \nde Carapace width (mm)", xlab="Carapace width (mm)", ylab="Carapace length (mm)")
+png("./images/1_dot_2/carapace_length_fonction_carapace_width.png")
+plot(crabsquant$CW, crabsquant$CL, col="royalblue", 
+	main="Carapace length (mm) en fonction \nde Carapace width (mm)", 
+	xlab="Carapace width (mm)", ylab="Carapace length (mm)")
 abline(lM, col="firebrick4")
-legend("bottomright", 200, legend=c("Carapace", "Linear model"), col=c("royalblue", "firebrick4"), pch=c('o','-'))
+legend("bottomright", 200, legend=c("Carapace", "Linear model"), 
+	col=c("royalblue", "firebrick4"), pch=c('o','-'))
+dev.off()

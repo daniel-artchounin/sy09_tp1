@@ -38,12 +38,16 @@ pause()
 k <- 2 # Pour le premier plan factoriel
 C <- X %*% M %*% U[, 1:k] # Principal components
 
-plot(C, col="royalblue", main="Les quatres individus dans le \npremier plan factoriel", xlab="u1", ylab="u2")
+png("./images/2_dot_1/individus_premier_plan_factorial.png")
+plot(C, col="royalblue", main="Les quatres individus dans le \npremier plan factoriel", 
+	xlab="u1", ylab="u2")
+dev.off()
 
 pause()
 
 
 ############################### Question 3 ############################### 
+
 XBis <- matrix(c(3, 4, 3, 1, 4, 3, 2, 3, 6, 4, 1, 2), nrow=4, byrow=T)
 XBis <- t(XBis) # On fait effectue les même calculs avec la transposée de X
 XBis <- scale(XBis, scale = FALSE) # Centrage de la matrice
@@ -59,12 +63,16 @@ LAMBDABis <- EIGENBis$values
 kBis <- 2 # Pour le premier plan factoriel
 CBis <- XBis %*% MBis %*% UBis[, 1:kBis] # Principal components
 
-plot(CBis, col="royalblue", main="Les trois variables dans le \npremier plan factoriel", xlab="u1", ylab="u2")
+png("./images/2_dot_1/variables_premier_plan_factorial.png")
+plot(CBis, col="royalblue", main="Les trois variables dans le \npremier plan factoriel", 
+	xlab="u1", ylab="u2")
+dev.off()
 
 pause()
 
 
 ############################### Question 4 ############################### 
+
 C <- X %*% M %*% U # Principal components
 
 X1 <- C[,1:1] %*% t(U[,1:1]) # Pour k=1

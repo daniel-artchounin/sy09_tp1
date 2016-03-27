@@ -5,6 +5,7 @@ source("pretraitements.R") # Prétraitements des données
 
 
 ############################### Question 1 ############################### 
+
 nrow(books.sel) # Nombre de paris : 126461
 summary(books.sel) # Résumé des données
 length(unique(books.sel$match_uid)) # Le nombre de matchs : 25993
@@ -16,22 +17,6 @@ length(unique(books.sel$book)) # Nombre de bookmakers : 7
 
 
 ############################### Question 2 ###############################
-
-# data <-aggregate(x=books[,c("winner","loser")] , by=list(match=books$match_uid), FUN=unique) # Useless
-# test1 <- function (data){ # Useless
-# 	joueurs <- levels(as.factor(c(levels(data$winner), levels(data$loser)))); # Useless
-# 	joueur = c() # Useless
-# 	gagne = c() # Useless
-# 	perdu = c() # Useless
-# 	totale = c() # Useless
-# 	for(i in 1:length(joueurs)){ # Useless
-# 		joueur <- c(joueur, joueurs[i]) # Useless
-# 		gagne <- c(gagne, length(data[which(data$winner == joueurs[i]),])) # Useless
-# 		perdu <- c(perdu, length(data[which(data$loser == joueurs[i]),])) # Useless
-# 		total <- c(perdu[i-1]+gagne[i-1]) # Useless
-# 	} # Useless
-# 	print(data.frame(joueur, gagne, perdu, total)) # Useless
-# } # Useless
 
 # Tous les joueurs présents dans le tableau : books.sel
 joueurs <- factor(unique(c(as.character(books.sel$winner), as.character(books.sel$loser))))
@@ -55,46 +40,59 @@ players <- data.frame(
 
 players$nb_played <- players$nb_win + players$nb_lose # Calcul du nombre de match joués
 players$level <- players$nb_win/(players$nb_win + players$nb_lose) # Calcul du niveau
-# -> Il faudrait trouver un indicateur qui dépende également du nombre de match joués : côte moyenne des cotes de matchs
+# -> Il faudrait trouver un indicateur qui dépende également du nombre de match joués : 
+# côte moyenne des cotes de matchs
 
+png("./images/1_dot_1/caracterisation_joueurs_fonction_niveau.png")
 hist(players$level, main="Catégorisation des joueurs en \nfonction de leur niveau", 
 	xlab="Niveau") 
 # Il y près de 600 joueurs vraiment nuls (ayant un ratio compris entre 0 et 0.1)
 # Sont-ils réellement nuls ont n'ont-ils pas assez joué de match ?
+dev.off()
 
 pause()
 
+png("./images/1_dot_1/nb_match_joues_fonction_niveau.png")
 plot(players$level, players$nb_played, main="Nombre de match joués en fonction \ndu niveau des joueurs", 
 	xlab="Niveau", ylab="Nombre de match joués") 
 # Nombre de match joués en fonction du niveau du joueur
+dev.off()
 
 pause()
 
+png("./images/1_dot_1/nb_match_gagnes_fonction_niveau.png")
 plot(players$level, players$nb_win, main="Nombre de match gagnés en fonction \ndu niveau des joueurs", 
 	xlab="Niveau", ylab="Nombre de match gagnés") 
 # Nombre de match gagnés en fonction du niveau du joueur
 # -> Les joueurs ayant un niveau élevé ont soit joué très peu de match soit beaucoup (les vrais bons joueurs)
 # -> Notre indicateur n'est pas terrible
+dev.off()
 
 pause()
 
+png("./images/1_dot_1/nb_match_perdus_fonction_niveau.png")
 plot(players$level, players$nb_lose, main="Nombre de match perdus en fonction \ndu niveau des joueurs", 
 	xlab="Niveau", ylab="Nombre de match perdus") 
 # Nombre de match perdus en fonction du niveau du joueur
+dev.off()
 
 pause()
 
+png("./images/1_dot_1/boxplot_nb_match_joues_gagnes_perdus.png")
 boxplot(players[,2:4], names=c('Match joués', 'Match gagnés', 'Match perdus'),
 main="Nombre de match joués, \ngagnés et perdus") 
 # Diagramme en boites du nombre de match joués, du nombre de match gagnés et 
 # du nombre de match perdus pour chaque joueur
 # Au moins 75 % des joueurs ont joué moins de 30 matchs
+dev.off()
 
 pause()
 
+png("./images/1_dot_1/boxplot_inutile.png")
 boxplot(players[1:500,2:4]) # Diagramme en boites du nombre de match joués, du nombre de match gagnés et 
 # du nombre de match perdus pour les 500 premiers joueurs du tableau (inutile vu que les joueurs 
 # ne sont pas triés selon leur identifiant)
+dev.off()
 
 pause()
 
@@ -122,9 +120,11 @@ matchProbEvolution <- aggregate(absProbabilityEvolution~match_uid, books.sel, FU
 suspectMatches <- matchProbEvolution[which(matchProbEvolution[2] >= 0.1), c(1, 2)]
 # Restriction sur les match suspects
 
+png("./images/1_dot_1/caracterisation_match_suspects_evolution_probabilite.png")
 hist(suspectMatches$absProbabilityEvolution, main="Catégorisation des match suspects à partir \nde leur évolution maximale de probabilité", 
 	xlab="Niveau")
 # Caractérisation des matchs suspects
+dev.off()
 
 pause()
 
@@ -139,9 +139,11 @@ length(unique(books.sel[which(books.sel$absProbabilityEvolution>=0.1), 12]))
 numberOfSuspiciousBets <- table(books.sel[which(books.sel$absProbabilityEvolution>=0.1), 12])
 # Nombre de paris suspects dans lesquels sont impliqués chaque bookmaker
 
+png("./images/1_dot_1/nb_paris_suspects_par_bookmaker.png")
 barplot(numberOfSuspiciousBets, main="Nombre de paris suspects dans lesquels \nsont impliqués chaque bookmaker")
 # Diagramme bâtons représentants les nombres de paris suspects dans lesquels sont
 # impliqués chaque bookmaker
+dev.off()
 
 pause()
 
@@ -157,10 +159,12 @@ unique(books.sel[which(books.sel$absProbabilityEvolution>=0.1),14])
 length(unique(books.sel[which(books.sel$absProbabilityEvolution>=0.1),14]))
 # Nombre de gagnants supects : 455
 
-unique(c(as.character(books.sel[which(books.sel$absProbabilityEvolution>=0.1),13]), as.character(books.sel[which(books.sel$absProbabilityEvolution>=0.1),14])))
+unique(c(as.character(books.sel[which(books.sel$absProbabilityEvolution>=0.1),13]), 
+	as.character(books.sel[which(books.sel$absProbabilityEvolution>=0.1),14])))
 # Joueurs suspects
 
-length(unique(c(as.character(books.sel[which(books.sel$absProbabilityEvolution>=0.1),13]), as.character(books.sel[which(books.sel$absProbabilityEvolution>=0.1),14]))))
+length(unique(c(as.character(books.sel[which(books.sel$absProbabilityEvolution>=0.1),13]), 
+	as.character(books.sel[which(books.sel$absProbabilityEvolution>=0.1),14]))))
 # Nombre de joueurs suspects, tjrs les mêmes...
 
 suspectBets <- books.sel[books.sel$absProbabilityEvolution >= 0.1, c(15, 13)]
@@ -178,7 +182,9 @@ suspectLosers <- suspectLosers[suspectLosers$Freq >= 10, c(1,2)]
 length(suspectLosers[,2])
 # Nombre de perdants supects : 104
 
+png("./images/1_dot_1/caracterisation_perdants_suspects_nb_match_suspects.png")
 hist(suspectLosers[,2], main="Catégorisation des perdants suspects à partir du nombre \nde match suspects dans lesquels ils sont impliqués")
 # Caractérisation des perdants suspects
+dev.off()
 
 pause()
