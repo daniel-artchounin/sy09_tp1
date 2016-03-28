@@ -43,7 +43,7 @@ players$level <- players$nb_win/(players$nb_win + players$nb_lose) # Calcul du n
 # -> Il faudrait trouver un indicateur qui dépende également du nombre de match joués : 
 # côte moyenne des cotes de matchs
 
-png("./images/1_dot_1/caracterisation_joueurs_fonction_niveau.png")
+png("./images/1_dot_1/hist_caracterisation_joueurs_fonction_niveau.png")
 hist(players$level, main="Catégorisation des joueurs en \nfonction de leur niveau", 
 	xlab="Niveau") 
 # Il y près de 600 joueurs vraiment nuls (ayant un ratio compris entre 0 et 0.1)
@@ -51,6 +51,16 @@ hist(players$level, main="Catégorisation des joueurs en \nfonction de leur nive
 dev.off()
 
 pause()
+
+png("./images/1_dot_1/boxplot_caracterisation_joueurs_fonction_niveau.png")
+boxplot(players$level, main="Catégorisation des joueurs en \nfonction de leur niveau", 
+	ylab="Niveau") 
+# Il y près de 600 joueurs vraiment nuls (ayant un ratio compris entre 0 et 0.1)
+# Sont-ils réellement nuls ont n'ont-ils pas assez joué de match ?
+dev.off()
+
+pause()
+
 
 png("./images/1_dot_1/nb_match_joues_fonction_niveau.png")
 plot(players$level, players$nb_played, main="Nombre de match joués en fonction \ndu niveau des joueurs", 
@@ -80,7 +90,7 @@ pause()
 
 png("./images/1_dot_1/boxplot_nb_match_joues_gagnes_perdus.png")
 boxplot(players[,2:4], names=c('Match joués', 'Match gagnés', 'Match perdus'),
-main="Nombre de match joués, \ngagnés et perdus") 
+main="Nombre de match joués, \ngagnés et perdus", ylab="Fréquence") 
 # Diagramme en boites du nombre de match joués, du nombre de match gagnés et 
 # du nombre de match perdus pour chaque joueur
 # Au moins 75 % des joueurs ont joué moins de 30 matchs
@@ -120,9 +130,17 @@ matchProbEvolution <- aggregate(absProbabilityEvolution~match_uid, books.sel, FU
 suspectMatches <- matchProbEvolution[which(matchProbEvolution[2] >= 0.1), c(1, 2)]
 # Restriction sur les match suspects
 
-png("./images/1_dot_1/caracterisation_match_suspects_evolution_probabilite.png")
+png("./images/1_dot_1/hist_caracterisation_match_suspects_evolution_probabilite.png")
 hist(suspectMatches$absProbabilityEvolution, main="Catégorisation des match suspects à partir \nde leur évolution maximale de probabilité", 
-	xlab="Niveau")
+	xlab="Evolution maximale de probabilité")
+# Caractérisation des matchs suspects
+dev.off()
+
+pause()
+
+png("./images/1_dot_1/boxplot_caracterisation_match_suspects_evolution_probabilite.png")
+boxplot(suspectMatches$absProbabilityEvolution, main="Catégorisation des match suspects à partir \nde leur évolution maximale de probabilité", 
+	ylab="Evolution maximale de probabilité")
 # Caractérisation des matchs suspects
 dev.off()
 
@@ -140,7 +158,8 @@ numberOfSuspiciousBets <- table(books.sel[which(books.sel$absProbabilityEvolutio
 # Nombre de paris suspects dans lesquels sont impliqués chaque bookmaker
 
 png("./images/1_dot_1/nb_paris_suspects_par_bookmaker.png")
-barplot(numberOfSuspiciousBets, main="Nombre de paris suspects dans lesquels \nsont impliqués chaque bookmaker")
+barplot(numberOfSuspiciousBets, main="Nombre de paris suspects dans lesquels \nsont impliqués chaque bookmaker",
+	ylab="Fréquence")
 # Diagramme bâtons représentants les nombres de paris suspects dans lesquels sont
 # impliqués chaque bookmaker
 dev.off()
@@ -182,8 +201,15 @@ suspectLosers <- suspectLosers[suspectLosers$Freq >= 10, c(1,2)]
 length(suspectLosers[,2])
 # Nombre de perdants supects : 104
 
-png("./images/1_dot_1/caracterisation_perdants_suspects_nb_match_suspects.png")
-hist(suspectLosers[,2], main="Catégorisation des perdants suspects à partir du nombre \nde match suspects dans lesquels ils sont impliqués")
+png("./images/1_dot_1/hist_caracterisation_perdants_suspects_nb_match_suspects.png")
+hist(suspectLosers[,2], main="Catégorisation des perdants suspects à partir du nombre \nde match suspects dans lesquels ils sont impliqués",
+	xlab="Nombre de match suspects perdus")
+# Caractérisation des perdants suspects
+dev.off()
+
+png("./images/1_dot_1/boxplot_caracterisation_perdants_suspects_nb_match_suspects.png")
+boxplot(suspectLosers[,2], main="Catégorisation des perdants suspects à partir du nombre \nde match suspects dans lesquels ils sont impliqués",
+	ylab="Nombre de match suspects perdus")
 # Caractérisation des perdants suspects
 dev.off()
 

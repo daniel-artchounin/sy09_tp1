@@ -36,13 +36,22 @@ hM <- hist(plot=F, crabs$RW[crabs$sex=='M'], breaks=inter)
 # Une list de 'breaks' (les valeurs limites de chaque 'bin') et du nombre de valeurs dans chaque bin 
 # est retournée.
 
-png("./images/1_dot_2/rear_width_fonction_sexe.png")
+png("./images/1_dot_2/hist_rear_width_fonction_sexe.png")
 barplot(rbind(hF$counts,hM$counts),space=0,
 legend=levels(crabs$sex), main="Rear width (mm) en fonction du sexe", 
 	col=c('firebrick', 'darkcyan'))
 dev.off()
 
 pause()
+
+png("./images/1_dot_2/boxplot_rear_width_fonction_sexe.png")
+boxplot(crabs$RW[crabs$sex=='F'], crabs$RW[crabs$sex=='M'],
+	main="Rear width (mm) en fonction du sexe",
+	names=c("Femelle", "Mâle"), ylab="Rear width (mm)")
+dev.off()
+
+pause()
+
 
 png("./images/1_dot_2/crabes_selon_espece.png")
 plot(crabsquant, main="Caractéristiques morphologiques \ndes crabes selon leur espèce", 
@@ -67,10 +76,18 @@ hO <- hist(plot=F, crabs$FL[crabs$sp=='O'], breaks=inter)
 # Une list de 'breaks' (les valeurs limites de chaque 'bin') et du nombre de valeurs dans chaque bin 
 # est retournée.
 
-png("./images/1_dot_2/fontal_lobe_size_fonction_sexe.png")
-barplot(rbind(hB$counts,hO$counts),space=0,
-legend=levels(crabs$sp), main="Fontal lobe size (mm) en \nfonction de l'espèce", 
+png("./images/1_dot_2/hist_frontal_lobe_size_fonction_espece.png")
+barplot(rbind(hB$counts, hO$counts), space=0,
+legend=levels(crabs$sp), main="Frontal lobe size (mm) en \nfonction de la couleur", 
 	col=c('lightslateblue', 'orangered'))
+dev.off()
+
+pause()
+
+png("./images/1_dot_2/boxplot_frontal_lobe_size_fonction_espece.png")
+boxplot(crabs$FL[crabs$sp=='B'], crabs$FL[crabs$sp=='O'],
+	main="Frontal lobe size (mm) en \nfonction de la couleur",
+	names=c("Bleu", "Orange"), ylab="Frontal lobe size (mm)")
 dev.off()
 
 pause()
