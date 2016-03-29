@@ -92,14 +92,14 @@ pause()
 
 # Représentation de l'ancienne base et des individus dans le plan formé à partir de U1 et U2
 png("./images/2_dot_2/ex_base_et_individus_u1_u2.png")
-biplot(res, xlab='U1', ylab='U2', 
-	main='Représentation de l\'ancienne base et des individus\n dans le plan formé à partir de U1 et U2')
+biplot(res, xlab='C1/U1', ylab='C2/U2', 
+	main='Représentation des variables dans le plan formé \n à partir de C1 et C2 et des individus\n dans le plan formé à partir de U1 et U2')
 dev.off()
 
 pause()
 
 # Représentation de l'ancienne base et des individus dans le plan formé à partir de U1 et U3
 png("./images/2_dot_2/ex_base_et_individus_u1_u3.png")
-biplot(res, c(1,3), xlab='U1', ylab='U3', 
-	main='Représentation de l\'ancienne base et des individus\n dans le plan formé à partir de U1 et U3')
+biplot(res, c(1,3), xlab='C1/U1', ylab='C3/U3', 
+	main='Représentation des variables dans le plan formé \n à partir de C1 et C3 et des individus\n dans le plan formé à partir de U1 et U3')
 dev.off()
