@@ -11,7 +11,7 @@ X <- Y - matrix(1, n, 1) %*% apply(Y, 2, mean) # Centrage et réduction éventue
 V <- (1/n)*t(X) %*% X #Calcul de la matrice de covariance ou de correlation
 tmp <- eigen(V, symmetric=TRUE) # Calcul des valeurs propres et des axes principaux d'inertie 
 L <- diag(tmp$values) # Matrice diagonale des valeurs propres
-U <- tmp$vectors # Matrice des vecteurs propres
+U <- -tmp$vectors # Matrice des vecteurs propres
 C <- X %*% U # Calcul des composantes principales
 COR <- diag(1/apply(X^2, 1, sum)) %*% C^2 # Calcul des contributions des axes aux individus
 CTR <- (1/n)*C^2 %*% diag(1/diag(L)) # Calcul des contributions des individus aux axes

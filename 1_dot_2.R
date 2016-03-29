@@ -99,6 +99,8 @@ pause()
 # entre toutes les variables quantitatives prises 2 à 2.
 
 print(cov(crabsquant))
+
+print(cor(crabsquant, method="pearson"))
 # Le calcul de la matrice de variance-covariance empirique semble confirmer l'existence de corrélations entre 
 # entre les différentes variables.
 pause()
@@ -106,7 +108,7 @@ pause()
 # Afin d'illustrer mes dires, je vais réaliser un test de corélation entre les variables 
 # Carapace length (mm) et Carapace width (mm). L'hypothèse nulle de ce test est l'absence de 
 # corrélation entre ces deux variables.
-print(cor.test(crabsquant$CL , crabsquant$CW))
+print(cor.test(crabsquant$CL, crabsquant$CW, method="pearson"))
 # Le degré de signification (p-value) est striment inférieur à 2.2e-16. Cela signifie que pour
 # un niveau de signification (alpha) de 1%, on s'autoriserait à rejeter l'hypothèse nulle.
 # Il y a donc corrélation entre les deux variables.
