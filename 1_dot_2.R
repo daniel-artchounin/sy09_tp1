@@ -38,8 +38,8 @@ hM <- hist(plot=F, crabs$RW[crabs$sex=='M'], breaks=inter)
 
 pdf("./images/1_dot_2/hist_rear_width_fonction_sexe.pdf")
 barplot(rbind(hF$counts,hM$counts),space=0,
-legend=levels(crabs$sex), main="Rear width (mm) en fonction du sexe", 
-	col=c('firebrick', 'darkcyan'))
+#legend=levels(crabs$sex), main="Rear width (mm) en fonction du sexe", 
+#	col=c('firebrick', 'darkcyan'))
 dev.off()
 
 pause()
@@ -58,8 +58,8 @@ plot(crabsquant, main="Caractéristiques morphologiques \ndes crabes selon leur 
 	pch=21, 
 	col=c("lightslateblue", "orangered")[crabs[,1]],
 	labels=labelsNames)
-legend("bottomright", 200,legend=c("Espèce bleue", "Espèce orange"), 
-	col = c("lightslateblue", "orangered"), pch = 21, inset=0)
+#legend("bottomright", 200,legend=c("Espèce bleue", "Espèce orange"), 
+#	col = c("lightslateblue", "orangered"), pch = 21, inset=0)
 # Il semblerait que les paramètres "Carapace width" et "Fontal lobe size" soient
 # impactés par l'espèce de crabe
 dev.off()

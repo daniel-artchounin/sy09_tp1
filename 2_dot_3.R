@@ -122,6 +122,7 @@ dev.off()
 crabsquant2 = crabsquant / crabsquant$CL # Division par CL
 crabsquant2 = crabsquant2[,-3] # Suppression de la colonne CL rempli de 1 et inutile
 
+colnames(crabsquant2) <- c("FL/CL","RW/CL","CW/CL","BD/CL")
 res2 <- princomp(crabsquant2) # Calcul de l'ACP après pré-traitement
 summary(res2)
 (res2$sdev)^2 # L2
@@ -157,26 +158,26 @@ pause()
 
 # Caractéristiques  des données selon le sexe et l'espèce avec pré-traitement
 
-labelsNames <- c("Fontal lobe size (mm)", "Rear width (mm)", 
-                "Carapace width (mm)", "Body depth (mm)")
+labelsNames <- c("Fontal lobe size (mm) / CL", "Rear width (mm) / CL", 
+                "Carapace width (mm) / CL", "Body depth (mm) / CL")
 
-pdf("./images/2_dot_3/crabes_selon_sexe.pdf")
+pdf("./images/2_dot_3/PTcrabes_selon_sexe.pdf")
 plot(crabsquant2, main="Caractéristiques morphologiques\n des crabes selon leur sexe", 
 	pch=21, 
 	col=c("firebrick", "darkcyan")[crabs[,2]],
 	labels=labelsNames	
 	)
-legend("bottomright", 200,legend=c("Femelle", "Mâle"), 
-	col = c("firebrick", "darkcyan"), pch = 21, inset=0) 
+#legend("topright", 200,legend=c("Femelle", "Mâle"), 
+#	col = c("firebrick", "darkcyan"), pch = 21, inset=0) 
 dev.off()
 
 pause()
 
-pdf("./images/2_dot_3/crabes_selon_espece.pdf")
+pdf("./images/2_dot_3/PTcrabes_selon_espece.pdf")
 plot(crabsquant2, main="Caractéristiques morphologiques \ndes crabes selon leur espèce", 
 	pch=21, 
 	col=c("lightslateblue", "orangered")[crabs[,1]],
 	labels=labelsNames)
-legend("bottomright", 200,legend=c("Espèce bleue", "Espèce orange"), 
-	col = c("lightslateblue", "orangered"), pch = 21, inset=0)
+#legend("bottomright", 200,legend=c("Espèce bleue", "Espèce orange"), 
+#	col = c("lightslateblue", "orangered"), pch = 21, inset=0)
 dev.off()
