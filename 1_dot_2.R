@@ -13,7 +13,7 @@ table(crabs$sp) # Autant d'espèces O que d'espèces B
 labelsNames <- c("Fontal lobe size (mm)", "Rear width (mm)", "Carapace length (mm)",
                 "Carapace width (mm)", "Body depth (mm)")
 
-png("./images/1_dot_2/crabes_selon_sexe.png")
+pdf("./images/1_dot_2/crabes_selon_sexe.pdf")
 plot(crabsquant, main="Caractéristiques morphologiques\n des crabes selon leur sexe", 
 	pch=21, 
 	col=c("firebrick", "darkcyan")[crabs[,2]],
@@ -36,7 +36,7 @@ hM <- hist(plot=F, crabs$RW[crabs$sex=='M'], breaks=inter)
 # Une list de 'breaks' (les valeurs limites de chaque 'bin') et du nombre de valeurs dans chaque bin 
 # est retournée.
 
-png("./images/1_dot_2/hist_rear_width_fonction_sexe.png")
+pdf("./images/1_dot_2/hist_rear_width_fonction_sexe.pdf")
 barplot(rbind(hF$counts,hM$counts),space=0,
 legend=levels(crabs$sex), main="Rear width (mm) en fonction du sexe", 
 	col=c('firebrick', 'darkcyan'))
@@ -44,7 +44,7 @@ dev.off()
 
 pause()
 
-png("./images/1_dot_2/boxplot_rear_width_fonction_sexe.png")
+pdf("./images/1_dot_2/boxplot_rear_width_fonction_sexe.pdf")
 boxplot(crabs$RW[crabs$sex=='F'], crabs$RW[crabs$sex=='M'],
 	main="Rear width (mm) en fonction du sexe",
 	names=c("Femelle", "Mâle"), ylab="Rear width (mm)")
@@ -53,7 +53,7 @@ dev.off()
 pause()
 
 
-png("./images/1_dot_2/crabes_selon_espece.png")
+pdf("./images/1_dot_2/crabes_selon_espece.pdf")
 plot(crabsquant, main="Caractéristiques morphologiques \ndes crabes selon leur espèce", 
 	pch=21, 
 	col=c("lightslateblue", "orangered")[crabs[,1]],
@@ -76,7 +76,7 @@ hO <- hist(plot=F, crabs$FL[crabs$sp=='O'], breaks=inter)
 # Une list de 'breaks' (les valeurs limites de chaque 'bin') et du nombre de valeurs dans chaque bin 
 # est retournée.
 
-png("./images/1_dot_2/hist_frontal_lobe_size_fonction_espece.png")
+pdf("./images/1_dot_2/hist_frontal_lobe_size_fonction_espece.pdf")
 barplot(rbind(hB$counts, hO$counts), space=0,
 legend=levels(crabs$sp), main="Frontal lobe size (mm) en \nfonction de la couleur", 
 	col=c('lightslateblue', 'orangered'))
@@ -84,7 +84,7 @@ dev.off()
 
 pause()
 
-png("./images/1_dot_2/boxplot_frontal_lobe_size_fonction_espece.png")
+pdf("./images/1_dot_2/boxplot_frontal_lobe_size_fonction_espece.pdf")
 boxplot(crabs$FL[crabs$sp=='B'], crabs$FL[crabs$sp=='O'],
 	main="Frontal lobe size (mm) en \nfonction de la couleur",
 	names=c("Bleu", "Orange"), ylab="Frontal lobe size (mm)")
@@ -122,7 +122,7 @@ print(lM) # On peut consulter le modèle (l'ordonnée à l'origine et le coeffic
 
 pause()
 
-png("./images/1_dot_2/carapace_length_fonction_carapace_width.png")
+pdf("./images/1_dot_2/carapace_length_fonction_carapace_width.pdf")
 plot(crabsquant$CW, crabsquant$CL, col="royalblue", 
 	main="Carapace length (mm) en fonction \nde Carapace width (mm)", 
 	xlab="Carapace width (mm)", ylab="Carapace length (mm)")

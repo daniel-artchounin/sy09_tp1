@@ -38,8 +38,8 @@ pause()
 k <- 2 # Pour le premier plan factoriel
 C <- X %*% M %*% U[, 1:k] # Principal components
 
-png("./images/2_dot_1/individus_premier_plan_factorial.png")
-plot(C, col="royalblue", main="Les quatres individus dans le \npremier plan factoriel", 
+pdf("./images/2_dot_1/individus_premier_plan_factorial.pdf")
+plot(C, col="royalblue", main="Les quatre individus dans le \npremier plan factoriel", 
 	xlab="u1", ylab="u2")
 dev.off()
 
@@ -63,7 +63,7 @@ LAMBDABis <- EIGENBis$values
 kBis <- 2 # Pour le premier plan factoriel
 CBis <- XBis %*% MBis %*% UBis[, 1:kBis] # Principal components
 
-png("./images/2_dot_1/variables_premier_plan_factorial.png")
+pdf("./images/2_dot_1/variables_premier_plan_factorial.pdf")
 plot(CBis, col="royalblue", main="Les trois variables dans le \npremier plan factoriel", 
 	xlab="u1", ylab="u2")
 dev.off()
