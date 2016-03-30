@@ -106,8 +106,9 @@ pause()
 res <- princomp(crabsquant) # Calcul de l'ACP
 summary(res)
 (res$sdev)^2 # L
-res$loadings
-res$scores
+res$loadings # Vecteurs propres
+res$scores # Composantes
+res$sdev # Valeurs propres
 
 # Diagramme en bâtons des valeurs propres
 pdf("./images/2_dot_3/batons_valeurs_propres.pdf")
@@ -177,8 +178,10 @@ pause()
 res2 <- princomp(crabsquant2) # Calcul de l'ACP
 summary(res2)
 (res2$sdev)^2 # L2
-res2$loadings
-res2$scores
+res2$loadings # Vecteurs propres
+res2$scores # Composantes
+res2$sdev # Valeurs propres
+	
 
 # Diagramme en bâtons des valeurs propres
 pdf("./images/2_dot_3/PTbatons_valeurs_propres.pdf")

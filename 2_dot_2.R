@@ -80,8 +80,9 @@ data <- read.table('notes.txt') # Initialisation des données
 res <- princomp(data) # Calcul de l'ACP
 summary(res)
 (res$sdev)^2 # L
-res$loadings
-res$scores
+res$loadings # Vecteurs propres
+res$scores # Composantes
+res$sdev # Valeurs propres
 	
 # Diagramme en bâtons des valeurs propres
 pdf("./images/2_dot_2/22batons_valeurs_propres.pdf")
