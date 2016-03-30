@@ -19,8 +19,8 @@ plot(crabsquant, main="Caractéristiques morphologiques\n des crabes selon leur 
 	col=c("firebrick", "darkcyan")[crabs[,2]],
 	labels=labelsNames	
 	)
-legend("bottomright", 200,legend=c("Femelle", "Mâle"), 
-	col = c("firebrick", "darkcyan"), pch = 21, inset=0)
+legend("bottomright", 200,legend=c("Femelle", "Mâle"), col = c("firebrick", "darkcyan"), 
+	pch = 21, inset=0)
 # Il semblerait que le sexe impacte notablement le paramètre "Rear width" 
 dev.off()
 
@@ -38,8 +38,8 @@ hM <- hist(plot=F, crabs$RW[crabs$sex=='M'], breaks=inter)
 
 pdf("./images/1_dot_2/hist_rear_width_fonction_sexe.pdf")
 barplot(rbind(hF$counts,hM$counts),space=0,
-#legend=levels(crabs$sex), main="Rear width (mm) en fonction du sexe", 
-#	col=c('firebrick', 'darkcyan'))
+	legend=levels(crabs$sex), main="Rear width (mm) en fonction du sexe", 
+	col=c('firebrick', 'darkcyan'))
 dev.off()
 
 pause()
